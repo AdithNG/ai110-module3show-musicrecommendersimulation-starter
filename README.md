@@ -327,3 +327,46 @@ Read and complete `model_card.md`:
 Building this recommender made it clear that "AI recommendations" are not magic - they are just math applied to data. The system doesn't understand music; it computes distances between numbers and returns the smallest ones. This is obvious from the inside, but invisible to a listener using an app.
 
 The most surprising thing was how much the genre weight dominated. With +2.0 for genre vs. +1.0 for mood and up to +1.0 for energy, a genre mismatch is nearly impossible to overcome. A sad classical piano piece will never surface for a "happy pop" user, even if its valence and energy are actually close - because the genre string doesn't match. Real systems use embedding models that understand that "indie pop" and "pop" are adjacent, or that "chill" and "relaxed" overlap. This project revealed exactly where that gap is.
+
+---
+
+## Challenge Extensions
+
+These four optional extensions build on the base project without modifying the core scoring logic from Phase 2.
+
+### Challenge 1 - Advanced Song Features
+
+Five new columns were added to `data/songs.csv`:
+
+| Column | Type | Description |
+| --- | --- | --- |
+| `popularity` | int (0-100) | Stream-count-based popularity score |
+| `release_decade` | string | Decade the song is from (e.g. 2020s, 2010s, 2000s) |
+| `liveness` | float (0-1) | Probability the track was recorded live |
+| `speechiness` | float (0-1) | Amount of spoken word relative to music |
+| `detailed_mood` | string | Space-separated mood tags (e.g. "upbeat bright summery") |
+
+Three of these are also used in scoring: popularity adds a small bonus (up to +0.5), and high liveness or speechiness apply small penalties since they reduce the "studio music" feel most listeners expect.
+
+### Challenge 2 - Scoring Mode Comparison
+
+A `SCORING_MODES` dict was added to `recommender.py` with four weight presets:
+
+| Mode | Genre weight | Mood weight | Energy max |
+| --- | --- | --- | --- |
+| `balanced` | 2.0 | 1.0 | 1.0 |
+| `genre_first` | 3.0 | 0.5 | 0.5 |
+| `mood_first` | 1.0 | 2.0 | 1.0 |
+| `energy_focused` | 1.0 | 0.5 | 2.0 |
+
+Both `score_song()` and `recommend_songs()` accept a `mode` parameter. The demo in `main.py` runs all four modes on the Chill Lofi profile and prints the top-3 for each side by side.
+
+### Challenge 3 - Diverse Recommendations
+
+`recommend_diverse()` selects songs one at a time using greedy selection with cumulative penalties. After picking each song, remaining songs that share the same genre receive a -0.8 penalty and songs from the same artist receive a -0.6 penalty. This prevents all five results from clustering in one genre corner of the catalog.
+
+### Challenge 4 - Tabulate Output
+
+The `print_table()` function in `main.py` uses the `tabulate` library with `tablefmt="github"` to render recommendations as a formatted markdown table with columns for Rank, Title, Artist, Genre, Score, and Why.
+
+![Challenge extensions terminal output](assets/challenges_output.png)

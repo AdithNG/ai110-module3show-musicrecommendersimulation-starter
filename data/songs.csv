@@ -1,21 +1,21 @@
-id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness
-1,Sunrise City,Neon Echo,pop,happy,0.82,118,0.84,0.79,0.18
-2,Midnight Coding,LoRoom,lofi,chill,0.42,78,0.56,0.62,0.71
-3,Storm Runner,Voltline,rock,intense,0.91,152,0.48,0.66,0.10
-4,Library Rain,Paper Lanterns,lofi,chill,0.35,72,0.60,0.58,0.86
-5,Gym Hero,Max Pulse,pop,intense,0.93,132,0.77,0.88,0.05
-6,Spacewalk Thoughts,Orbit Bloom,ambient,chill,0.28,60,0.65,0.41,0.92
-7,Coffee Shop Stories,Slow Stereo,jazz,relaxed,0.37,90,0.71,0.54,0.89
-8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22
-9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78
-10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35
-11,City Cipher,Block Theory,hip-hop,energetic,0.85,95,0.72,0.87,0.12
-12,Golden Fields,Sage & Rye,country,relaxed,0.44,104,0.78,0.61,0.80
-13,Velvet Nights,Sarai Monroe,r&b,romantic,0.58,96,0.83,0.72,0.42
-14,Moonlight Sonata Redux,Clara Voss,classical,sad,0.22,66,0.38,0.28,0.97
-15,Drop Zone,Synthex,electronic,energetic,0.95,140,0.65,0.94,0.04
-16,Iron Curtain,Deadweight,metal,aggressive,0.97,168,0.31,0.55,0.06
-17,Porch Swing Summer,The Drifters,country,happy,0.55,108,0.88,0.67,0.74
-18,Late Night Thoughts,Kai Blue,r&b,moody,0.48,88,0.52,0.64,0.58
-19,Requiem for a Tuesday,Clara Voss,classical,sad,0.18,58,0.27,0.22,0.98
-20,Backstreet Hustle,Block Theory,hip-hop,focused,0.78,102,0.66,0.83,0.15
+id,title,artist,genre,mood,energy,tempo_bpm,valence,danceability,acousticness,popularity,release_decade,liveness,speechiness,detailed_mood
+1,Sunrise City,Neon Echo,pop,happy,0.82,118,0.84,0.79,0.18,87,2020s,0.12,0.05,upbeat bright summery
+2,Midnight Coding,LoRoom,lofi,chill,0.42,78,0.56,0.62,0.71,74,2020s,0.08,0.03,calm focused ambient
+3,Storm Runner,Voltline,rock,intense,0.91,152,0.48,0.66,0.10,68,2010s,0.31,0.06,driving powerful raw
+4,Library Rain,Paper Lanterns,lofi,chill,0.35,72,0.60,0.58,0.86,71,2020s,0.09,0.02,soft quiet peaceful
+5,Gym Hero,Max Pulse,pop,intense,0.93,132,0.77,0.88,0.05,82,2010s,0.18,0.04,pumped aggressive hype
+6,Spacewalk Thoughts,Orbit Bloom,ambient,chill,0.28,60,0.65,0.41,0.92,55,2020s,0.06,0.01,dreamy vast ethereal
+7,Coffee Shop Stories,Slow Stereo,jazz,relaxed,0.37,90,0.71,0.54,0.89,61,2010s,0.22,0.07,mellow cozy smooth
+8,Night Drive Loop,Neon Echo,synthwave,moody,0.75,110,0.49,0.73,0.22,66,2010s,0.14,0.03,dark nostalgic cinematic
+9,Focus Flow,LoRoom,lofi,focused,0.40,80,0.59,0.60,0.78,69,2020s,0.07,0.02,steady calm productive
+10,Rooftop Lights,Indigo Parade,indie pop,happy,0.76,124,0.81,0.82,0.35,78,2020s,0.16,0.04,warm joyful breezy
+11,City Cipher,Block Theory,hip-hop,energetic,0.85,95,0.72,0.87,0.12,80,2010s,0.19,0.28,bold confident urban
+12,Golden Fields,Sage & Rye,country,relaxed,0.44,104,0.78,0.61,0.80,57,2010s,0.25,0.05,rustic easygoing warm
+13,Velvet Nights,Sarai Monroe,r&b,romantic,0.58,96,0.83,0.72,0.42,73,2020s,0.11,0.06,sensual warm smooth
+14,Moonlight Sonata Redux,Clara Voss,classical,sad,0.22,66,0.38,0.28,0.97,52,2020s,0.04,0.01,melancholy tender reflective
+15,Drop Zone,Synthex,electronic,energetic,0.95,140,0.65,0.94,0.04,76,2010s,0.10,0.03,intense driven electric
+16,Iron Curtain,Deadweight,metal,aggressive,0.97,168,0.31,0.55,0.06,59,2010s,0.39,0.07,crushing brutal heavy
+17,Porch Swing Summer,The Drifters,country,happy,0.55,108,0.88,0.67,0.74,63,2000s,0.28,0.04,sunny carefree nostalgic
+18,Late Night Thoughts,Kai Blue,r&b,moody,0.48,88,0.52,0.64,0.58,67,2020s,0.13,0.05,introspective soulful quiet
+19,Requiem for a Tuesday,Clara Voss,classical,sad,0.18,58,0.27,0.22,0.98,44,2010s,0.05,0.01,sorrowful sparse delicate
+20,Backstreet Hustle,Block Theory,hip-hop,focused,0.78,102,0.66,0.83,0.15,72,2000s,0.21,0.19,sharp precise energetic
