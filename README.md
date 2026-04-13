@@ -152,7 +152,7 @@ flowchart TD
     A[User Preferences\ngenre - mood - energy] --> B[load_songs\ndata/songs.csv]
     B --> C[recommend_songs\nuser_prefs - songs - k]
     C --> D{For each song in catalog}
-    D --> E[_score_song_dict\ngenre match +2.0\nmood match +1.0\nenergy proximity 0-1.0]
+    D --> E[score_song\ngenre match +2.0\nmood match +1.0\nenergy proximity 0-1.0]
     E --> F[score - reasons list]
     F --> G[sorted by score descending]
     G --> H[Top k results\nsong - score - explanation]
