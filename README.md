@@ -196,7 +196,7 @@ pytest
 
 Running `python -m src.main` produces the following output:
 
-![Terminal output showing recommendations for all user profiles](assets/terminal_output.png)
+![Basic profiles terminal output - High-Energy Pop, Chill Lofi, Deep Intense Rock](assets/basic_profiles.png)
 
 ```
 Loaded songs: 20
@@ -282,6 +282,8 @@ Top result: "Sunrise City" (score 3.98) via genre match (+2.0), mood match (+1.0
 `{"genre": "rock", "mood": "intense", "energy": 0.9}`
 
 "Storm Runner" scores 3.99 and dominates completely. There is only one rock song in the catalog so positions 2-5 are all genre misses. "Gym Hero" appears again at #2 because its mood (intense) and energy (0.93) are close. The dataset is too small to give a rock fan a useful list beyond the first result.
+
+![Adversarial profiles terminal output - Sad High Energy, Jazz, All Neutral](assets/adversarial_profiles.png)
 
 ### Adversarial - Sad but High Energy (classical, sad, energy: 0.9)
 
