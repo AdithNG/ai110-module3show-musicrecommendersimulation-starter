@@ -56,26 +56,31 @@ Songs were generated for this simulation and do not represent real-world release
 
 - **Genre string matching is brittle**: "indie pop" and "pop" are treated as completely different genres even though they overlap musically. A user who types "Hip Hop" (capital H) gets zero genre points against "hip-hop" in the catalog.
 - **Filter bubble**: The genre weight (+2.0) is strong enough that users almost always see their own genre at the top. Songs from other genres are rarely surfaced, even when they closely match on energy and mood.
-- **Pop overrepresentation**: The starter catalog had 2 pop songs and 3 lofi songs among its 10. Pop users were better served than jazz or synthwave users simply because of catalog size.
+- **Genre dominates over all other signals**: The adversarial "sad but high energy classical" profile exposed this most clearly. Both classical songs in the catalog scored above 3.0 despite having energy values (0.22, 0.18) nearly opposite to the user's target (0.9). Because genre + mood together award up to +3.0 and energy proximity can only ever add up to +1.0, the system can never recommend a high-energy song over a matching-genre song regardless of how wrong the energy feels. A listener who asked for high-energy classical would get two very slow, quiet pieces.
+- **Catalog sparsity silently degrades quality**: Users whose preferred genre has fewer than 3 songs in the catalog get only one strong recommendation. The rest of their top 5 are genre mismatches that scored on energy alone. This is invisible to the user - the system returns 5 results with no indication that 4 of them are poor fits.
 - **Only one continuous feature scored**: Valence, danceability, and tempo are stored but ignored by the scoring function. Two songs with very different vibes (e.g., very danceable vs. not) can score identically.
 - **No personalization over time**: The system has no memory of skips, replays, or explicit likes. Every session starts fresh.
-- **Conflicting preferences produce odd results**: A user who wants `mood: sad` and `energy: 0.9` may get "aggressive metal" because energy is close and there's nothing else matching sadness at high energy - not necessarily a useful recommendation.
 
 ---
 
 ## 7. Evaluation
 
-Three user profiles were tested manually:
+Six user profiles were tested - three standard and three adversarial:
 
-| Profile | Top Result | Observation |
-|---|---|---|
-| `{genre: pop, mood: happy, energy: 0.8}` | Sunrise City | Genre + mood + energy all matched - correct and intuitive |
-| `{genre: lofi, mood: chill, energy: 0.4}` | Library Rain | Correct, both lofi/chill songs scored equally high |
-| `{genre: rock, mood: intense, energy: 0.9}` | Storm Runner | Only one rock song in catalog - it dominated completely |
+| Profile | Top Result | Score | Observation |
+|---|---|---|---|
+| Pop / happy / energy 0.8 | Sunrise City | 3.98 | All three signals matched - felt correct |
+| Lofi / chill / energy 0.4 | Midnight Coding | 3.98 | Two lofi/chill songs tied at top - felt correct |
+| Rock / intense / energy 0.9 | Storm Runner | 3.99 | Only one rock song exists; rest of list is genre misses |
+| Classical / sad / energy 0.9 | Moonlight Sonata Redux | 3.32 | Correct genre/mood but energy is wrong - system recommended quiet songs to someone who wanted high energy |
+| Jazz / relaxed / energy 0.5 | Coffee Shop Stories | 3.87 | Only one jazz song; positions 2-5 are energy-proximity filler |
+| Ambient / chill / energy 0.5 | Spacewalk Thoughts | 3.78 | Neutral energy target spread points broadly; mood became the only tiebreaker |
 
-One logic experiment was run: doubling the energy weight made rankings more sensitive to energy gaps. Songs with matching genre but mismatched energy dropped noticeably. The default weights felt better balanced.
+**What surprised me:** The classical/sad/high-energy profile was the most revealing. I expected the system to at least try to find high-energy songs, but genre + mood points (+3.0 max) are mathematically impossible to overcome with energy alone (+1.0 max). The system is structurally incapable of recommending across genre boundaries, regardless of how conflicting the other preferences are.
 
-A mood-only experiment (removing genre scoring) showed that genre dominates: without it, many unrelated songs tied in score, making the recommendations much less useful.
+**Weight shift experiment:** Halving genre weight (to +1.0) and doubling energy weight (to 0-2.0) caused "Rooftop Lights" (indie pop) to outrank "Gym Hero" (pop) for a pop profile - a genre miss beating a genre match purely on energy proximity. Rankings changed but did not improve. Original weights were restored.
+
+**Mood-only experiment:** Removing genre scoring made many unrelated songs tie in score, reducing recommendation usefulness significantly. Genre is load-bearing for this system to work at all.
 
 ---
 

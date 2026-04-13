@@ -265,31 +265,44 @@ Because: energy proximity (+0.93)
 
 ## Experiments
 
-### Profile 1 - High-Energy Pop (default)
+### Profile 1 - High-Energy Pop
 
 `{"genre": "pop", "mood": "happy", "energy": 0.8}`
 
-Top results: "Sunrise City" and "Gym Hero" dominate because they match genre + mood. "Rooftop Lights" (indie pop, happy) scores slightly lower - it gets the mood and energy match but not the genre.
+Top result: "Sunrise City" (score 3.98) via genre match (+2.0), mood match (+1.0), energy proximity (+0.98). This feels right intuitively - it is the only song that satisfies all three preferences. "Gym Hero" ranks second despite being tagged "intense" not "happy" because the +2.0 genre bonus is strong enough to keep it ahead of non-pop songs that do match on mood.
 
 ### Profile 2 - Chill Lofi
 
 `{"genre": "lofi", "mood": "chill", "energy": 0.4}`
 
-Top results: "Library Rain" and "Midnight Coding" score highest (+3.9 each). Songs in other genres with low energy still score reasonably on energy proximity alone.
+"Midnight Coding" and "Library Rain" both score 3.95+ and are clear winners. "Focus Flow" scores 3.0 despite being tagged "focused" not "chill" - it gets full genre credit and near-perfect energy proximity. A focused lofi track at 0.40 energy does feel similar to a chill lofi track, so this is a reasonable edge case.
 
-### Profile 3 - Intense Rock
+### Profile 3 - Deep Intense Rock
 
 `{"genre": "rock", "mood": "intense", "energy": 0.9}`
 
-Top result: "Storm Runner" gets genre + mood + near-perfect energy proximity. "Gym Hero" and "Iron Curtain" get energy credit but miss genre.
+"Storm Runner" scores 3.99 and dominates completely. There is only one rock song in the catalog so positions 2-5 are all genre misses. "Gym Hero" appears again at #2 because its mood (intense) and energy (0.93) are close. The dataset is too small to give a rock fan a useful list beyond the first result.
 
-### Weight Shift Experiment
+### Adversarial - Sad but High Energy (classical, sad, energy: 0.9)
 
-When energy weight was doubled (2x the energy distance term), songs with very different energy but matching genre started dropping noticeably. The ranking became more sensitive to energy closeness and less stable for genre-first users. Overall, the default weights felt more balanced.
+Both classical songs rank first despite their energy (0.22, 0.18) being nearly the opposite of the user's target (0.9). The genre + mood bonus (+3.0 combined) is always larger than the maximum possible energy score (+1.0), so the system can never surface a high-energy song over a matching classical/sad song. This is the clearest example of genre domination producing an audibly wrong recommendation.
+
+### Adversarial - Underrepresented Genre (jazz, relaxed, energy: 0.5)
+
+Only one jazz song exists so it scores 3.87 and everything else is far behind. The user gets four filler results that share only energy proximity. This directly exposes the catalog sparsity problem.
+
+### Weight Shift Experiment (genre halved to +1.0, energy doubled to 0-2.0)
+
+Key changes for the High-Energy Pop profile:
+- "Rooftop Lights" (indie pop, no genre match) jumped from #3 to #2, overtaking "Gym Hero"
+- "Backstreet Hustle" (hip-hop) climbed into the top 5 on energy alone
+- "Gym Hero" dropped from #2 to #3 despite having a genre match
+
+The shift made the system more sensitive to energy distance and less forgiving of genre mismatches. Rankings changed noticeably but did not feel more accurate - "Rooftop Lights" outranking a pop song for a pop profile feels wrong. Original weights were restored.
 
 ### Mood-Only Experiment
 
-Temporarily commenting out the genre check caused "Midnight Coding" and "Library Rain" to tie with "Sunrise City" for a happy/pop profile - because all three matched on mood proximity after genre was removed. This showed how much genre dominates the default ranking.
+Temporarily removing the genre check caused "Midnight Coding" and "Library Rain" to tie with "Sunrise City" for a happy/pop profile because all three matched on mood proximity after genre was removed. This confirmed how much genre dominates the default ranking.
 
 ---
 
