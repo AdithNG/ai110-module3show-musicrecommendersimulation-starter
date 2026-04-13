@@ -52,6 +52,30 @@ def main() -> None:
         songs,
     )
 
+    # Adversarial Profile 4: Conflicting mood and energy (sad but high energy)
+    # Tests whether the system handles contradictory preferences gracefully
+    print_recommendations(
+        "Adversarial - Sad but High Energy",
+        {"genre": "classical", "mood": "sad", "energy": 0.9},
+        songs,
+    )
+
+    # Adversarial Profile 5: Genre with almost no catalog coverage
+    # Tests what happens when the system has very little to work with
+    print_recommendations(
+        "Adversarial - Underrepresented Genre (jazz)",
+        {"genre": "jazz", "mood": "relaxed", "energy": 0.5},
+        songs,
+    )
+
+    # Adversarial Profile 6: Middle-of-the-road everything
+    # Tests whether neutral preferences produce useful or bland results
+    print_recommendations(
+        "Adversarial - All Neutral Preferences",
+        {"genre": "ambient", "mood": "chill", "energy": 0.5},
+        songs,
+    )
+
 
 if __name__ == "__main__":
     main()
